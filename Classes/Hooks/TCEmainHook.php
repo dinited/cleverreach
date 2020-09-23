@@ -9,6 +9,8 @@ use WapplerSystems\Cleverreach\Service\ConfigurationService;
 use WapplerSystems\Cleverreach\Tools\Rest;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility as debug;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use WapplerSystems\Cleverreach\Domain\Model\Mailing;
+use WapplerSystems\Cleverreach\Domain\Model\Receiver;
 
 class TCEmainHook extends \WapplerSystems\Cleverreach\CleverReach\Api{
 
@@ -34,11 +36,8 @@ class TCEmainHook extends \WapplerSystems\Cleverreach\CleverReach\Api{
         $configurationService = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationService::class);
         $this->configurationService = $configurationService;
 
-        $this->connect();
-
-        $result = $this->sendMailing("name", "subject", "hello world");
-        debug::var_dump($result);
+        $groupId = $this->configurationService->getGroupId();
+        $this->sendMailing("name", "html/text","subject","content here", "text", $groupId);
     }
-
 
 }

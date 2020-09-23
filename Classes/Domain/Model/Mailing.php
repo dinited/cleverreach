@@ -22,6 +22,11 @@ class Mailing
     /**
      * @var string
      */
+    protected $type = 'html/text';
+
+    /**
+     * @var string
+     */
     protected $subject = 'subject line';
 
     /**
@@ -35,19 +40,19 @@ class Mailing
     protected $senderEmail = 'bruce.wayne@gotham.com';
 
     /**
-     * @var array
+     * @var integer
      */
-    protected $content = [];
+    protected $groupId = 0;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $recievers = [];
+    protected $html = 'Newsletter Content';
 
     /**
-     * @var array
+     * @var string
      */
-    protected $settings = [];
+    protected $text = 'this is the Text only';
 
     /**
      * Mailing constructor.
@@ -57,12 +62,13 @@ class Mailing
      * @param $group
      * @param null $content
      */
-    public function __construct($name, $subject, $group, $content = NULL)
+    public function __construct($name, $type, $subject, $html, $text)
     {
         $this->name = $name;
+        $this->type = $type;
         $this->subject = $subject;
-        $this->recievers['groups'] = [$group];
-        $this->content = $content;
+        $this->html = $html;
+        $this->text = $text;
     }
 
 
@@ -73,26 +79,13 @@ class Mailing
     {
         return [
             'name' => $this->name,
+            'type' => $this->type,
             'subject' => $this->subject,
             'sender_name' => $this->senderName,
             'sender_email' => $this->senderEmail,
-            'content' => $this->content,
-            'receivers' => $this->recievers,
-            'settings' => $this->settings,
+            'html' => $this->html,
+            'text' => $this->text
         ];
-    }
-
-
-    /**
-     * @param \stdClass $obj
-     * @return Receiver
-     */
-    public static function createInstance($obj): Mailing
-    {
-        $inst = new self($obj->name);
-        $inst->subject = $obj->subject;
-        $inst->content = (array)$obj->content;
-        return $inst;
     }
 
     /**
@@ -109,6 +102,22 @@ class Mailing
     public function setName(string $name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
     }
 
     /**
@@ -160,51 +169,51 @@ class Mailing
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function getContent(): array
+    public function getGroupId(): int
     {
-        return $this->content;
+        return $this->groupId;
     }
 
     /**
-     * @param array $content
+     * @param int $groupId
      */
-    public function setContent(array $content)
+    public function setGroupId(int $groupId)
     {
-        $this->content = $content;
+        $this->groupId = $groupId;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getRecievers(): array
+    public function getHtml(): string
     {
-        return $this->recievers;
+        return $this->html;
     }
 
     /**
-     * @param array $recievers
+     * @param string $html
      */
-    public function setRecievers(array $recievers)
+    public function setHtml(string $html)
     {
-        $this->recievers = $recievers;
-    }    
-    
-    /**
-     * @return array
-     */
-    public function getSettings(): array
-    {
-        return $this->settings;
+        $this->html = $html;
     }
 
     /**
-     * @param array $settings
+     * @return string
      */
-    public function setSettings(array $settings)
+    public function getText(): string
     {
-        $this->settings = $settings;
+        return $this->text;
+    }
+
+    /**
+     * @param string $text
+     */
+    public function setText(string $text)
+    {
+        $this->text = $text;
     }
 
 }

@@ -80,7 +80,7 @@ class Api
      * @param int $groupId
      * @return mixed
      */
-    public function sendMailing($name, $subject, $content, $groupId = null)
+    public function sendMailing($name, $type, $subject, $html, $text, $groupId = NULL)
     {
         $this->connect();
 
@@ -88,7 +88,24 @@ class Api
             $groupId = $this->configurationService->getGroupId();
         }
 
-        $mailing[] = (new Mailing($name, $subject, $content, $groupId))->toArray();
+        debug::var_dump($groupId);
+
+        $mailing[] = (new Mailing($name, $type, $subject, $html, $text))->toArray();
+
+        die();
+
+        $mailing = [
+            "mailingData" => [
+            "name" => "my internal name",
+            "type" => "html/text",
+            "subject" => "subject line",
+            "sender_name" => "Bruce Whayne (Whayne corp.)",
+            "sender_email" => "bruce.whayne@gotham.com",
+            "group_id" => [$groupId], // see groups endpoint
+            "html" => "Newsletter Content",
+            "text" => "this is the Text only"
+            ]
+        ];
 
         debug::var_dump($mailing);
 
@@ -137,6 +154,8 @@ class Api
             $aReceivers[] = (new Receiver($receivers))->toArray();
         }
 
+        debug::var_dump($aReceivers);
+
         try {
             $return = $this->rest->post('/groups.json/' . $groupId . '/receivers/insert',
                 $aReceivers
@@ -147,7 +166,6 @@ class Api
         } catch (\Exception $ex) {
             $this->log($ex);
         }
-
 
         return false;
     }
