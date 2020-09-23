@@ -84,6 +84,8 @@ class Api
     {
         $this->connect();
 
+        return true;
+
         if ($groupId === null || $groupId === '') {
             $groupId = $this->configurationService->getGroupId();
         }
