@@ -48,11 +48,14 @@ class Mailing
      * @var array
      */
     protected $settings = [];
-    
+
     /**
      * Mailing constructor.
-     * @param string $email
-     * @param array $attributes
+     * 
+     * @param $name
+     * @param $subject
+     * @param $group
+     * @param null $content
      */
     public function __construct($name, $subject, $group, $content = NULL)
     {
