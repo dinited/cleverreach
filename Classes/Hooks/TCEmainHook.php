@@ -36,8 +36,8 @@ class TCEmainHook extends \WapplerSystems\Cleverreach\CleverReach\Api{
 
         $this->connect();
 
-        $this->sendMailing("name", "subject", "hello world");
-        debug::var_dump("inside callCleverReach function");
+        $result = $this->sendMailing("name", "subject", "hello world");
+        debug::var_dump($result);
     }
 
 

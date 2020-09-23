@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use WapplerSystems\Cleverreach\Domain\Model\Mailing;
 use WapplerSystems\Cleverreach\Domain\Model\Receiver;
 use WapplerSystems\Cleverreach\Tools\Rest;
-
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility as debug;
 
 class Api
 {
@@ -84,16 +84,16 @@ class Api
     {
         $this->connect();
 
-        return true;
-
         if ($groupId === null || $groupId === '') {
             $groupId = $this->configurationService->getGroupId();
         }
 
         $mailing[] = (new Mailing($name, $subject, $content, $groupId))->toArray();
 
+        debug::var_dump($mailing);
+
         try {
-            $return = $this->rest->post('/groups.json',
+            $return = $this->rest->post('/mailings.json',
                 $mailing
             );
             if (\is_object($return) && $return->status === 'insert success') {
