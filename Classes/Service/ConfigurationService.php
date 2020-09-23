@@ -95,4 +95,19 @@ class ConfigurationService {
         return $config['unsubscribemethod'];
     }
 
+    /**
+     * @return int
+     */
+    public function getPageid() {
+        $config = $this->getConfiguration();
+        return (int)$config['pageid'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getTableName() {
+        $config = $this->getConfiguration();
+        return $config['tableName'];
+    }
 }

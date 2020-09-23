@@ -9,6 +9,8 @@ plugin.tx_cleverreach {
 		restUrl = {$plugin.tx_cleverreach.restUrl}
 		source = {$plugin.tx_cleverreach.source}
 		unsubscribemethod = {$plugin.tx_cleverreach.unsubscribemethod}
+		pageid = {$plugin.tx_cleverreach.pageid}
+		tableName = {$plugin.tx_cleverreach.tableName}
 	}
 	
 }
