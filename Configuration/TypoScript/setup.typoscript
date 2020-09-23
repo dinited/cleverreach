@@ -10,6 +10,8 @@ plugin.tx_cleverreach {
 		source = {$plugin.tx_cleverreach.source}
 		unsubscribemethod = {$plugin.tx_cleverreach.unsubscribemethod}
 		pageid = {$plugin.tx_cleverreach.pageid}
+		senderName = {$plugin.tx_cleverreach.senderName}
+		senderEmail = {$plugin.tx_cleverreach.senderEmail}
 		tableName = {$plugin.tx_cleverreach.tableName}
 	}
 	

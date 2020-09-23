@@ -110,4 +110,20 @@ class ConfigurationService {
         $config = $this->getConfiguration();
         return $config['tableName'];
     }
+
+    /**
+     * @return string
+     */
+    public function getSenderName() {
+        $config = $this->getConfiguration();
+        return $config['senderName'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getSenderEmail() {
+        $config = $this->getConfiguration();
+        return $config['senderEmail'];
+    }
 }

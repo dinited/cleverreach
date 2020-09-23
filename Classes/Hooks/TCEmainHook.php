@@ -41,8 +41,10 @@ class TCEmainHook extends \WapplerSystems\Cleverreach\CleverReach\Api{
         $configurationService = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationService::class);
         $this->configurationService = $configurationService;
 
+        $name = "News " . $datum = date("d.m.Y H:i",time());
+
         $groupId = $this->configurationService->getGroupId();
-        $this->sendMailing("name", "html/text","subject","content here", "text", $groupId);
+        $this->sendMailing($name, "html/text","subject","content here", "text", $groupId);
     }
 
 }

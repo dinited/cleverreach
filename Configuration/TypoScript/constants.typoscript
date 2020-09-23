@@ -23,7 +23,13 @@ plugin.tx_cleverreach {
 
     # cat=plugin.tx_cleverreach//h; type=string; label=Table name to call API on update
     tableName = tx_news_domain_model_news
-    
-    # cat=plugin.tx_cleverreach//e; type=int; label=Debug mode
+
+    # cat=plugin.tx_cleverreach//i; type=string; label=Sender Name Bruce Wayne
+    senderName =
+
+    # cat=plugin.tx_cleverreach//j; type=string; label=Sender Email bruce.wayne@gotham.com
+    senderEmail =
+
+    # cat=plugin.tx_cleverreach//k; type=int; label=Debug mode
     debug = 0
 }

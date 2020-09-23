@@ -62,15 +62,17 @@ class Mailing
      * @param $group
      * @param null $content
      */
-    public function __construct($name, $type, $subject, $html, $text)
+    public function __construct($name, $type, $subject, $senderName, $senderEmail, $groupId, $html, $text)
     {
         $this->name = $name;
         $this->type = $type;
         $this->subject = $subject;
+        $this->senderName = $senderName;
+        $this->senderEmail = $senderEmail;
+        $this->groupId = $groupId;
         $this->html = $html;
         $this->text = $text;
     }
-
 
     /**
      * @return array
@@ -78,13 +80,16 @@ class Mailing
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
-            'type' => $this->type,
-            'subject' => $this->subject,
-            'sender_name' => $this->senderName,
-            'sender_email' => $this->senderEmail,
-            'html' => $this->html,
-            'text' => $this->text
+            'mailingData' => [
+                'name' => $this->name,
+                'type' => $this->type,
+                'subject' => $this->subject,
+                'sender_name' => $this->senderName,
+                'sender_email' => $this->senderEmail,
+                'group_id' => [$this->groupId],
+                'html' => $this->html,
+                'text' => $this->text
+            ]
         ];
     }
 

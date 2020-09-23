@@ -88,26 +88,10 @@ class Api
             $groupId = $this->configurationService->getGroupId();
         }
 
-        debug::var_dump($groupId);
+        $senderName = $this->configurationService->getSenderName();
+        $senderEmail = $this->configurationService->getSenderEmail();
 
-        $mailing[] = (new Mailing($name, $type, $subject, $html, $text))->toArray();
-
-        die();
-
-        $mailing = [
-            "mailingData" => [
-            "name" => "my internal name",
-            "type" => "html/text",
-            "subject" => "subject line",
-            "sender_name" => "Bruce Whayne (Whayne corp.)",
-            "sender_email" => "bruce.whayne@gotham.com",
-            "group_id" => [$groupId], // see groups endpoint
-            "html" => "Newsletter Content",
-            "text" => "this is the Text only"
-            ]
-        ];
-
-        debug::var_dump($mailing);
+        $mailing = (new Mailing($name, $type, $subject, $senderName, $senderEmail, $groupId, $html, $text))->toArray();
 
         try {
             $return = $this->rest->post('/mailings.json',
@@ -119,7 +103,6 @@ class Api
         } catch (\Exception $ex) {
             $this->log($ex);
         }
-
 
         return false;
     }
@@ -153,8 +136,6 @@ class Api
         if (\is_string($receivers)) {
             $aReceivers[] = (new Receiver($receivers))->toArray();
         }
-
-        debug::var_dump($aReceivers);
 
         try {
             $return = $this->rest->post('/groups.json/' . $groupId . '/receivers/insert',
