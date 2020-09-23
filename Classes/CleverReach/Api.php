@@ -12,6 +12,7 @@ namespace WapplerSystems\Cleverreach\CleverReach;
 
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use WapplerSystems\Cleverreach\Domain\Model\Mailing;
 use WapplerSystems\Cleverreach\Domain\Model\Receiver;
 use WapplerSystems\Cleverreach\Tools\Rest;
 
@@ -72,6 +73,37 @@ class Api
 
     }
 
+    /**
+     * @param string $name
+     * @param string $subject
+     * @param array $content
+     * @param int $groupId
+     * @return mixed
+     */
+    public function sendMailing($name, $subject, $content, $groupId = null)
+    {
+        $this->connect();
+
+        if ($groupId === null || $groupId === '') {
+            $groupId = $this->configurationService->getGroupId();
+        }
+
+        $mailing[] = (new Mailing($name, $subject, $content, $groupId))->toArray();
+
+        try {
+            $return = $this->rest->post('/groups.json',
+                $mailing
+            );
+            if (\is_object($return) && $return->status === 'insert success') {
+                return true;
+            }
+        } catch (\Exception $ex) {
+            $this->log($ex);
+        }
+
+
+        return false;
+    }
 
     /**
      * Inserts receiver to a list. Ignores, if already in list.
