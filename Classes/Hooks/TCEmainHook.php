@@ -15,10 +15,15 @@ use WapplerSystems\Cleverreach\Domain\Model\Receiver;
 class TCEmainHook extends \WapplerSystems\Cleverreach\CleverReach\Api{
 
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$reference) {
-        if ($table === 'tx_news_domain_model_news') {
-            
-            $pid = 61;
-            $record = BackendUtility::getRecord('tx_news_domain_model_news', $id);
+        /** @var ConfigurationService $configurationService */
+        $configurationService = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationService::class);
+        $this->configurationService = $configurationService;
+
+        $pid = $this->configurationService->getPageid();
+        $tabledata = $this->configurationService->getTableName();
+
+        if ($table === $tabledata) {
+            $record = BackendUtility::getRecord($table, $id);
             
             if($status == 'update' && $record['pid'] == $pid){
                 $this->callCleverReach();
